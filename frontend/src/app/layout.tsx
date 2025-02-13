@@ -25,13 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-pink-500 min-h-[100dvh] flex flex-col">
+      <body className="bg-white-500 min-h-[100dvh] flex flex-col">
         <header className="flex gap-3">
           <Link href="/">메인</Link>
           <Link href="/about">소개</Link>
           <Link href="/post/list">글 목록</Link>
         </header>
-        <div className="bg-blue-300 flex-grow">{children}</div>
+        <div className="bg-blue-200 flex-grow">{children}</div>
         <footer className="bg-green-200">푸터</footer>
       </body>
     </html>
