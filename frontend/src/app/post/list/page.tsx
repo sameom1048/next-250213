@@ -17,6 +17,9 @@ export default async function Page() {
     <div>
       <h1>글 목록 page</h1>
 
+      <div>응답 코드 : {rsData.code}</div>
+      <div>결과 메세지 : {rsData.msg}</div>
+
       <hr />
       <ul>
         <li>글1</li>

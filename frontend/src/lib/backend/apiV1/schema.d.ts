@@ -11,7 +11,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /**
+         * 댓글 상세
+         * @description 게시글의 댓글 상세 정보를 가져옵니다.
+         */
         get: operations["getItem"];
+        /**
+         * 댓글 수정
+         * @description 게시글의 댓글을 수정합니다.
+         */
         put: operations["modify"];
         post?: never;
         delete: operations["delete"];
@@ -79,8 +87,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /**
+         * 댓글 목록
+         * @description 게시글의 댓글 목록을 가져옵니다.
+         */
         get: operations["getItems_1"];
         put?: never;
+        /**
+         * 댓글 작성
+         * @description 게시글에 댓글을 작성합니다.
+         */
         post: operations["write_1"];
         delete?: never;
         options?: never;
