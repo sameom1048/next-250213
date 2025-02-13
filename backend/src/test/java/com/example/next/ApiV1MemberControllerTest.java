@@ -142,7 +142,7 @@ public class ApiV1MemberControllerTest {
     }
 
 
-    private ResultActions loingRequest(String username, String password) throws Exception {
+    private ResultActions loggingRequest(String username, String password) throws Exception {
         return mvc
                 .perform(
                         post("/api/v1/members/login")
@@ -169,7 +169,7 @@ public class ApiV1MemberControllerTest {
         String password = "user11234";
 
         // 요청
-        ResultActions resultActions = loingRequest(username, password);
+        ResultActions resultActions = loggingRequest(username, password);
         Member member = memberService.findByUsername(username).get();
 
         // 응답. (요청 처리 결과)
@@ -219,7 +219,7 @@ public class ApiV1MemberControllerTest {
         String username = "user1";
         String password = "1234";
 
-        ResultActions resultActions = loingRequest(username, password);
+        ResultActions resultActions = loggingRequest(username, password);
 
         resultActions
                 .andExpect(status().isUnauthorized())
@@ -237,7 +237,7 @@ public class ApiV1MemberControllerTest {
         String username = "aaaaa";
         String password = "1234";
 
-        ResultActions resultActions = loingRequest(username, password);
+        ResultActions resultActions = loggingRequest(username, password);
 
         resultActions
                 .andExpect(status().isUnauthorized())
@@ -255,7 +255,7 @@ public class ApiV1MemberControllerTest {
         String username = "";
         String password = "123123";
 
-        ResultActions resultActions = loingRequest(username, password);
+        ResultActions resultActions = loggingRequest(username, password);
 
         resultActions
                 .andExpect(status().isBadRequest())
@@ -273,7 +273,7 @@ public class ApiV1MemberControllerTest {
         String username = "123123";
         String password = "";
 
-        ResultActions resultActions = loingRequest(username, password);
+        ResultActions resultActions = loggingRequest(username, password);
 
         resultActions
                 .andExpect(status().isBadRequest())
