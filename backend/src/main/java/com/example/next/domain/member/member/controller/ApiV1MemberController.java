@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "ApiV1MemberController", description = "회원 관련 API")
 @RestController
@@ -30,7 +31,7 @@ public class ApiV1MemberController {
     record JoinReqBody(@NotBlank String username, @NotBlank String password, @NotBlank String nickname) {}
 
     @Operation(summary = "회원 가입")
-    @PostMapping("/join")
+    @PostMapping(value = "/join", produces = "application/json;charset=UTF-8")
     public RsData<MemberDto> join(@RequestBody @Valid JoinReqBody reqBody) {
 
         memberService.findByUsername(reqBody.username())

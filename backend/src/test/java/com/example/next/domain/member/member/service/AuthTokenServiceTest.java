@@ -1,5 +1,7 @@
 package com.example.next.domain.member.member.service;
 
+import com.example.next.domain.member.member.service.AuthTokenService;
+import com.example.next.domain.member.member.service.MemberService;
 import com.example.next.domain.member.member.entity.Member;
 import com.example.next.standard.util.Ut;
 import org.junit.jupiter.api.DisplayName;

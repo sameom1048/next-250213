@@ -68,9 +68,10 @@ public class PostService {
 
         String likeKeyword = "%" + keyword + "%";
 
-        if(SearchKeywordType.CONTENT.equals(keywordType)) {
+        if(SearchKeywordType.content == keywordType) {
             return postRepository.findByListedAndContentLike(true, likeKeyword, pageRequest);
         }
+
 
         return postRepository.findByListedAndTitleLike(true, likeKeyword, pageRequest);
     }
@@ -80,7 +81,7 @@ public class PostService {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize);
         String likeKeyword = "%" + keyword + "%";
 
-        if(SearchKeywordType.CONTENT.equals(keywordType)) {
+        if(SearchKeywordType.content == keywordType) {
             return postRepository.findByAuthorAndContentLike(author, likeKeyword, pageRequest);
         }
 

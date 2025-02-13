@@ -29,24 +29,25 @@ public class DevInitData {
                     List.of(
                             "cmd.exe",
                             "/c",
-                            "npx --package typescript --package openapi-typescript --package punycode openapi-typescript apiV1.json -o ../frontend/src/lib/backend/apiV1/schema.d.ts")); // Windows
+                            "npx --package typescript --package openapi-typescript --package punycode openapi-typescript apiV1.json -o ../frontend/src/lib/backend/apiV1/schema.d.ts")
+            );
         };
     }
 
     public void runCmd(List<String> command) {
-
         // 실행할 터미널 명령어 (예: ls -l 또는 dir)
 //        List<String> command = List.of("ls", "-l"); // macOS/Linux
+//         List<String> command =  // Windows
 
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             processBuilder.redirectErrorStream(true); // 표준 에러를 표준 출력과 합침
+
             Process process = processBuilder.start();
 
             // 명령어 실행 결과 읽기
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
-
                 while ((line = reader.readLine()) != null) {
                     System.out.println(line);
                 }
@@ -55,13 +56,13 @@ public class DevInitData {
             // 프로세스 종료 코드 확인
             int exitCode = process.waitFor();
             System.out.println("프로세스 종료 코드: " + exitCode);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void genApiJsonFile(String url, String filename) {
+
         Path filePath = Path.of(filename); // 저장할 파일명
 
         // HttpClient 생성
