@@ -1,3 +1,22 @@
+type PostDto = {
+  id: number;
+  createDate: string;
+  modifiedDate: string;
+  authorId: number;
+  authorName: string;
+  title: string;
+  published: boolean;
+  listed: boolean;
+};
+
+type PostItemPageDto = {
+  currentPageNo: number;
+  pageSize: number;
+  totalPages: number;
+  totalItems: number;
+  items: PostDto[];
+};
+
 export default async function Page() {
   // api 호출
 
@@ -9,7 +28,7 @@ export default async function Page() {
 
   const rsData = await response.json();
 
-  const pageDto = rsData.data;
+  const pageDto: PostItemPageDto = rsData.data;
 
   return (
     <div>
