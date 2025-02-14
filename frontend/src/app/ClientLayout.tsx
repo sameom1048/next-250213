@@ -3,7 +3,6 @@
 import { components } from "@/lib/backend/apiV1/schema";
 import client from "@/lib/backend/client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function ClinetLayout({
   children,
@@ -12,7 +11,6 @@ export default function ClinetLayout({
   children: React.ReactNode;
   me: components["schemas"]["MemberDto"];
 }>) {
-  const router = useRouter();
   const isLogined = me.id !== 0;
 
   return (
@@ -37,7 +35,8 @@ export default function ClinetLayout({
                   return;
                 }
 
-                router.push(`/post/list`);
+                // router.push(`/post/list`);
+                window.location.href = "/post/list";
               }}
             >
               로그아웃
