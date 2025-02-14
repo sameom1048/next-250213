@@ -72,14 +72,12 @@ public class BaseInitData {
         postService.write(user2, "title8", "content8", true, true);
         postService.write(user2, "title9", "content9", true, true);
 
-        for (int i = 10; i <= 100; i++) {
-            postService.write(user1, "title" + i, "content" + i, i % 2 == 0, i % 3 == 0);
-
+        for(int i = 10; i <= 100; i++) {
+            postService.write(user1, "title" + i, "content" + i, i % 3 != 0, i % 4 != 0);
         }
 
-        for (int i = 101; i <= 200; i++) {
-            postService.write(user2, "title" + i, "content" + i, i % 4 == 0, i % 5 == 0);
-
+        for(int i = 101; i <= 200; i++) {
+            postService.write(user2, "title" + i, "content" + i, i % 5 != 0, i % 6 != 0);
         }
 
     }
