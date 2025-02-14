@@ -85,16 +85,21 @@ export default function ClientPage({
           }
         )}
       </div>
-      <ul>
+      <ul className="flex flex-wrap gap-3">
         {pageDto.items.map((item) => {
           return (
-            <li className="border-2 border-red-300 my-2 p-2" key={item.id}>
-              <div>id : {item.id}</div>
-              <div>title : {item.title}</div>
-              <div>authorId : {item.authorId}</div>
-              <div>authorName : {item.authorName}</div>
-              <div>published : {`${item.published}`}</div>
-              <div>listed : {`${item.listed}`}</div>
+            <li
+              className="border-2 border-red-300 my-2 p-2 rounded-2xl w-1/4 "
+              key={item.id}
+            >
+              <Link href={`/post/${item.id}`}>
+                <div>id : {item.id}</div>
+                <div>title : {item.title}</div>
+                <div>authorId : {item.authorId}</div>
+                <div>authorName : {item.authorName}</div>
+                <div>published : {`${item.published}`}</div>
+                <div>listed : {`${item.listed}`}</div>
+              </Link>
             </li>
           );
         })}
