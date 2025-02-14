@@ -41,5 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 #custom
-src/app/lib/backend/apiV1/schema.d.ts
-/src/app/lib/backend/apiV1/schema.d.ts
+src/lib/backend/apiV1/schema.d.ts
+/src/lib/backend/apiV1/schema.d.ts
