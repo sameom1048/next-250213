@@ -1,7 +1,10 @@
+"use client";
+
 import { components } from "@/lib/backend/apiV1/schema";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default async function ClientPage({
+export default function ClientPage({
   rsData,
   keywordType,
   keyword,
@@ -14,10 +17,11 @@ export default async function ClientPage({
   pageSize: number;
   page: number;
 }) {
+  const router = useRouter();
   const pageDto = rsData.data;
 
   return (
-    <div>
+    <div className="mx-20 my-4">
       <h1>글 목록</h1>
 
       <div>응답 코드 : {rsData.code}</div>
@@ -28,9 +32,23 @@ export default async function ClientPage({
       <div>currentPageNo : {pageDto.currentPageNo}</div>
       <div>pageSize : {pageDto.pageSize}</div>
 
-      <hr />
+      <hr className="my-4 border-8 border-gray-500" />
 
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          const formData = new FormData(e.target as HTMLFormElement);
+          const searchKeyword = formData.get("keyword") as string;
+          const searchKeywordType = formData.get("keywordType") as string;
+          const page = 1;
+          const pageSize = formData.get("pageSize") as string;
+
+          router.push(
+            `/post/list?keywordType=${searchKeywordType}&keyword=${searchKeyword}&pageSize=${pageSize}&page=${page}`
+          );
+        }}
+      >
         <select name="keywordType" defaultValue={keywordType}>
           <option value="title">제목</option>
           <option value="content">내용</option>
@@ -40,6 +58,7 @@ export default async function ClientPage({
           type="text"
           name="keyword"
           defaultValue={keyword}
+          className="mx-5"
         />
         <input type="submit" value="검색" />
         <label className="ml-5" htmlFor="">
@@ -69,7 +88,7 @@ export default async function ClientPage({
       <ul>
         {pageDto.items.map((item) => {
           return (
-            <li className="border-2 border-red-500 my-2 p-2" key={item.id}>
+            <li className="border-2 border-red-300 my-2 p-2" key={item.id}>
               <div>id : {item.id}</div>
               <div>title : {item.title}</div>
               <div>authorId : {item.authorId}</div>
