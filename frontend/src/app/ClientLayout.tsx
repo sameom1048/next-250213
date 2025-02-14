@@ -15,6 +15,7 @@ export default function ClinetLayout({
           <Link href="/about">소개</Link>
           <Link href="/post/list">글 목록</Link>
           <Link href="/member/login">로그인</Link>
+          <Link href="/member/me">내정보</Link>
         </header>
         <div className="bg-blue-200 flex-grow">{children}</div>
         <footer className="bg-green-200">푸터</footer>
