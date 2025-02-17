@@ -24,7 +24,7 @@ export default function ClinetLayout({
           {!isLogined && <Link href="/member/login">로그인</Link>}
           {isLogined && (
             <Link
-              href=""
+              href={""}
               onClick={async (e) => {
                 e.preventDefault();
                 const response = await client.DELETE("/api/v1/members/logout", {
