@@ -43,6 +43,8 @@ export default function ClinetLayout({
               로그아웃
             </Link>
           )}
+          {!isLogined && <Link href="/member/join">회원가입</Link>}
+
           {isLogined && <Link href="/member/me">내정보</Link>}
         </header>
         <div className="bg-blue-200 flex-grow">{children}</div>
