@@ -147,7 +147,7 @@ public class ApiV1PostController {
         );
     }
 
-    record ModifyReqBody(@NotBlank String title, @NotBlank String content) {
+    record PostModifyReqBody(@NotBlank String title, @NotBlank String content, boolean published, boolean listed) {
     }
 
     @Operation(
@@ -156,7 +156,7 @@ public class ApiV1PostController {
     )
     @PutMapping("{id}")
     @Transactional
-    public RsData<PostWithContentDto> modify(@PathVariable long id, @RequestBody @Valid ModifyReqBody reqBody) {
+    public RsData<PostWithContentDto> modify(@PathVariable long id, @RequestBody @Valid PostModifyReqBody reqBody) {
 
         Member actor = rq.getActor(); // 야매
 
@@ -166,7 +166,7 @@ public class ApiV1PostController {
 
         post.canModify(actor);
 
-        postService.modify(post, reqBody.title(), reqBody.content());
+        postService.modify(post, reqBody.title(), reqBody.content(), reqBody.published(), reqBody.listed());
 
         return new RsData<>(
                 "200-1",
