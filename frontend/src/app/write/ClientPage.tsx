@@ -40,9 +40,9 @@ export default function ClientPage() {
       return;
     }
 
-    const rsData = response.data.data;
+    const post = response.data.data;
 
-    router.push(`/post/${rsData.id}`);
+    router.push(`/post/${post.id}`);
     // window.location.href = "/post/list";
   }
 
