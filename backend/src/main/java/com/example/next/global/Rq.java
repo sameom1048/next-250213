@@ -54,6 +54,7 @@ public class Rq {
         return Member.builder()
                 .id(user.getId())
                 .username(user.getUsername())
+                .nickname(user.getNickname())
                 .build();
     }
 
