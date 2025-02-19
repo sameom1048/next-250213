@@ -12,8 +12,8 @@ export default function ClientPage({
       <div>내 정보 페이지</div>
       <div>번호 : {me.id}</div>
       <div>Name : {me.nickname}</div>
-      <div>createdDate : {me.createdDate}</div>
-      <div>modifiedDate : {me.modifiedDate}</div>
+      {/* <div>createdDate : {me.createdDate}</div>
+      <div>modifiedDate : {me.modifiedDate}</div> */}
     </>
   );
 }

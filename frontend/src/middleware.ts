@@ -1,11 +1,32 @@
 import { NextResponse, type NextRequest } from "next/server";
 import client from "./lib/backend/client";
 import { cookies } from "next/headers";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 export async function middleware(request: NextRequest) {
   const myCookies = await cookies();
   const accessToken = myCookies.get("accessToken");
 
+  const { isLogin, isExpired, payload } = parseAccessToken(accessToken);
+
+  if (isLogin && isExpired) {
+    return refreshAccessToken;
+  }
+
+  if (!isLogin && isProtectedRoute(request.nextUrl.pathname)) {
+    return createUnauthorizedResponse();
+  }
+}
+
+async function refreshAccessToken() {
+  const response = await client.GET("/api/v1/members/me", {
+    headers: {
+      cookie: (await cookies()).toString(),
+    },
+  });
+}
+
+function parseAccessToken(accessToken: RequestCookie | undefined) {
   let isExpired = true;
   let payload = null;
 
@@ -23,27 +44,7 @@ export async function middleware(request: NextRequest) {
 
   let isLogin = payload !== null;
 
-  console.log("------------------");
-  console.log(isLogin, isExpired);
-
-  if (isLogin && isExpired) {
-    const nextResponse = NextResponse.next();
-
-    const response = await client.GET("/api/v1/members/me", {
-      headers: {
-        cookie: (await cookies()).toString(),
-      },
-    });
-
-    const springCookie = response.response.headers.getSetCookie();
-
-    nextResponse.headers.set("set-cookie", String(springCookie));
-    return nextResponse;
-  }
-
-  if (!isLogin && isProtectedRoute(request.nextUrl.pathname)) {
-    return createUnauthorizedResponse();
-  }
+  return { isLogin, isExpired, payload };
 }
 function isProtectedRoute(pathname: string): boolean {
   return (
