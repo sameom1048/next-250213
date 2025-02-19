@@ -1,4 +1,3 @@
-import client from "@/lib/backend/client";
 import ClientPage from "./ClientPage";
 import { cookies } from "next/headers";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";

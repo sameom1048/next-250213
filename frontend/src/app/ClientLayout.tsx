@@ -7,15 +7,21 @@ import Link from "next/link";
 export default function ClinetLayout({
   children,
   me,
+  fontVariable,
+  fontClassName,
 }: Readonly<{
   children: React.ReactNode;
   me: components["schemas"]["MemberDto"];
+  fontVariable: string;
+  fontClassName: string;
 }>) {
   const isLogined = me.id !== 0;
 
   return (
-    <html lang="en">
-      <body className="bg-blue-300 min-h-[100dvh] flex flex-col mx-20 my-4">
+    <html lang="en" className={`${fontVariable}`}>
+      <body
+        className={`bg-blue-300 min-h-[100dvh] flex flex-col mx-20 my-4 ${fontClassName}`}
+      >
         <header className="flex gap-3">
           <Link href="/">메인</Link>
           <Link href="/about">소개</Link>
