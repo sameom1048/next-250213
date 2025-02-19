@@ -46,7 +46,7 @@ export default function ClinetLayout({
   return (
     <html lang="en" className={`${fontVariable}`}>
       <body className={`min-h-[100dvh] flex flex-col ${fontClassName}`}>
-        <header className="flex justify-end gap-3 pr-10">
+        <header className="flex justify-center gap-3">
           <DropdownMenu>
             <DropdownMenuTrigger>
               <FontAwesomeIcon icon={faHouse} />
