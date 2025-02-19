@@ -6,11 +6,10 @@ import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 export async function middleware(request: NextRequest) {
   const myCookies = await cookies();
   const accessToken = myCookies.get("accessToken");
-
   const { isLogin, isExpired, payload } = parseAccessToken(accessToken);
 
   if (isLogin && isExpired) {
-    return refreshAccessToken;
+    return refreshAccessToken();
   }
 
   if (!isLogin && isProtectedRoute(request.nextUrl.pathname)) {
@@ -19,11 +18,19 @@ export async function middleware(request: NextRequest) {
 }
 
 async function refreshAccessToken() {
+  const nextResponse = NextResponse.next();
+
   const response = await client.GET("/api/v1/members/me", {
     headers: {
       cookie: (await cookies()).toString(),
     },
   });
+
+  const springCookie = response.response.headers.getSetCookie();
+
+  nextResponse.headers.set("set-cookie", String(springCookie));
+
+  return nextResponse;
 }
 
 function parseAccessToken(accessToken: RequestCookie | undefined) {
@@ -36,7 +43,6 @@ function parseAccessToken(accessToken: RequestCookie | undefined) {
       payload = JSON.parse(Buffer.from(tokenParts[1], "base64").toString());
       const expTimestamp = payload.exp * 1000; // exp는 초 단위이므로 밀리초로 변환
       isExpired = Date.now() > expTimestamp;
-      console.log("토큰 만료 여부:", isExpired);
     } catch (e) {
       console.error("토큰 파싱 중 오류 발생:", e);
     }
@@ -46,6 +52,7 @@ function parseAccessToken(accessToken: RequestCookie | undefined) {
 
   return { isLogin, isExpired, payload };
 }
+
 function isProtectedRoute(pathname: string): boolean {
   return (
     pathname.startsWith("/post/write") || pathname.startsWith("/post/edit")
